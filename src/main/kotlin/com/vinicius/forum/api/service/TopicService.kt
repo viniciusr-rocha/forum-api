@@ -9,7 +9,7 @@ interface TopicService {
 
     fun findById(id: Long): TopicOutput
 
-    fun insert(topicInput: TopicInput)
+    fun insert(topicInput: TopicInput): TopicOutput
 
     fun update(updateTopicInput: UpdateTopicInput)
 

@@ -24,8 +24,8 @@ class TopicController(private val service: TopicService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun insert(@RequestBody @Valid topicInput: TopicInput) {
-        service.insert(topicInput)
+    fun insert(@RequestBody @Valid topicInput: TopicInput): TopicOutput {
+        return service.insert(topicInput)
     }
 
     @PutMapping

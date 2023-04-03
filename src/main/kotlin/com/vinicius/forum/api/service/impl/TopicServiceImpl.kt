@@ -26,11 +26,12 @@ class TopicServiceImpl(
             .first()
     }
 
-    override fun insert(topicInput: TopicInput) {
-        this.topics = topics.plus(
-            topicInputMapper.map(topicInput)
-                .copy(id = this.topics.size.toLong() + 1)
-        )
+    override fun insert(topicInput: TopicInput): TopicOutput {
+        val topic = topicInputMapper
+            .map(topicInput)
+            .copy(id = this.topics.size.toLong() + 1)
+        this.topics = topics.plus(topic)
+        return topicOutputMapper.map(topic)
     }
 
     override fun update(updateTopicInput: UpdateTopicInput) {
