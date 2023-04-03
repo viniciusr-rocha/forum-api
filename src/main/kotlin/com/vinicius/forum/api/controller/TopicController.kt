@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*
 class TopicController(private val service: TopicService) {
 
     @GetMapping
-    fun listAll(): List<TopicOutput> {
-        return service.listAll()
+    fun listAll(@RequestParam(required = false) courseName:String?): List<TopicOutput> {
+        return service.listAll(courseName)
     }
 
     @GetMapping("/{id}")

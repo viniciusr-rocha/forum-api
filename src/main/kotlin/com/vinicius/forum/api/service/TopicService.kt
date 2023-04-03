@@ -5,7 +5,7 @@ import com.vinicius.forum.api.controller.input.UpdateTopicInput
 import com.vinicius.forum.api.controller.output.TopicOutput
 
 interface TopicService {
-    fun listAll(): List<TopicOutput>
+    fun listAll(courseName:String?): List<TopicOutput>
 
     fun findById(id: Long): TopicOutput
 

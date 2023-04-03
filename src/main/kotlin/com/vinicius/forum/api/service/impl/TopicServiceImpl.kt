@@ -18,8 +18,13 @@ class TopicServiceImpl(
     private val topicInputMapper: TopicInputMapper,
 ) : TopicService {
 
-    override fun listAll(): List<TopicOutput> {
-        return repository.findAll().map { topicOutputMapper.map(it) }
+    override fun listAll(courseName: String?): List<TopicOutput> {
+        val topics = if (courseName.isNullOrBlank()) {
+            repository.findAll()
+        } else {
+            repository.findByCourseName(courseName)
+        }
+        return topics.map { topicOutputMapper.map(it) }
     }
 
     override fun findById(id: Long): TopicOutput {
