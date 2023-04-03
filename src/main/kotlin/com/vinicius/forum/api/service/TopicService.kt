@@ -1,12 +1,12 @@
 package com.vinicius.forum.api.service
 
-import com.vinicius.forum.api.model.Topic
-import com.vinicius.forum.api.model.dto.TopicDTO
+import com.vinicius.forum.api.model.dto.input.TopicInput
+import com.vinicius.forum.api.model.dto.output.TopicOutput
 
 interface TopicService {
-    fun listAll(): List<Topic>
+    fun listAll(): List<TopicOutput>
 
-    fun findById(id: Long): Topic
+    fun findById(id: Long): TopicOutput
 
-    fun insert(topic: TopicDTO): TopicDTO
+    fun insert(topic: TopicInput)
 }

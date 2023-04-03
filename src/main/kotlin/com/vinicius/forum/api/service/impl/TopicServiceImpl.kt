@@ -1,7 +1,8 @@
 package com.vinicius.forum.api.service.impl
 
 import com.vinicius.forum.api.model.Topic
-import com.vinicius.forum.api.model.dto.TopicDTO
+import com.vinicius.forum.api.model.dto.input.TopicInput
+import com.vinicius.forum.api.model.dto.output.TopicOutput
 import com.vinicius.forum.api.service.CurseService
 import com.vinicius.forum.api.service.TopicService
 import com.vinicius.forum.api.service.UserService
@@ -14,16 +15,34 @@ class TopicServiceImpl(
     private val userService: UserService,
 ) : TopicService {
 
-    override fun listAll(): List<Topic> {
-        return this.topics
+    override fun listAll(): List<TopicOutput> {
+        return this.topics.map {
+            TopicOutput(
+                id = it.id,
+                title = it.title,
+                message = it.message,
+                status = it.status,
+                createdAt = it.createdAt
+            )
+        }
     }
 
-    override fun findById(id: Long): Topic {
-        return this.topics.first { it.id == id }
+    override fun findById(id: Long): TopicOutput {
+        return this.topics.filter { it.id == id }
+            .map {
+                TopicOutput(
+                    id = it.id,
+                    title = it.title,
+                    message = it.message,
+                    status = it.status,
+                    createdAt = it.createdAt
+                )
+            }
+            .first()
     }
 
-    override fun insert(topic: TopicDTO): TopicDTO {
-        this.topics.plus(
+    override fun insert(topic: TopicInput) {
+        this.topics = listOf(
             Topic(
                 id = this.topics.size.toLong() + 1,
                 title = topic.title,
@@ -32,6 +51,5 @@ class TopicServiceImpl(
                 user = userService.findById(topic.authorId)
             ),
         )
-        return topic
     }
 }
