@@ -1,4 +1,4 @@
-package com.vinicius.forum.api.model.dto.output
+package com.vinicius.forum.api.controller.output
 
 import com.vinicius.forum.api.model.enums.TopicStatus
 import java.time.Instant

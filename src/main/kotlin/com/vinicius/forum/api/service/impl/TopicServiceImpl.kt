@@ -1,11 +1,12 @@
 package com.vinicius.forum.api.service.impl
 
+import com.vinicius.forum.api.exceptions.TopicNotFoundException
 import com.vinicius.forum.api.mapper.TopicInputMapper
 import com.vinicius.forum.api.mapper.TopicOutputMapper
 import com.vinicius.forum.api.model.Topic
-import com.vinicius.forum.api.model.dto.input.TopicInput
-import com.vinicius.forum.api.model.dto.input.UpdateTopicInput
-import com.vinicius.forum.api.model.dto.output.TopicOutput
+import com.vinicius.forum.api.controller.input.TopicInput
+import com.vinicius.forum.api.controller.input.UpdateTopicInput
+import com.vinicius.forum.api.controller.output.TopicOutput
 import com.vinicius.forum.api.service.TopicService
 import org.springframework.stereotype.Service
 
@@ -23,7 +24,7 @@ class TopicServiceImpl(
     override fun findById(id: Long): TopicOutput {
         return this.topics.filter { it.id == id }
             .map { topicOutputMapper.map(it) }
-            .first()
+            .firstOrNull() ?: throw TopicNotFoundException()
     }
 
     override fun insert(topicInput: TopicInput): TopicOutput {
@@ -35,7 +36,7 @@ class TopicServiceImpl(
     }
 
     override fun update(updateTopicInput: UpdateTopicInput) {
-        val topic = this.topics.first { it.id == updateTopicInput.id }
+        val topic = findTopic(updateTopicInput.id)
         this.topics = topics
             .minus(topic)
             .plus(
@@ -53,7 +54,10 @@ class TopicServiceImpl(
     }
 
     override fun delete(id: Long) {
-        val topic = this.topics.first { it.id == id }
+        val topic = findTopic(id)
         this.topics = topics.minus(topic)
     }
+
+    private fun findTopic(id: Long) = this.topics
+        .find { it.id == id } ?: throw TopicNotFoundException()
 }

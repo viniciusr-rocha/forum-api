@@ -1,8 +1,8 @@
 package com.vinicius.forum.api.controller
 
-import com.vinicius.forum.api.model.dto.input.TopicInput
-import com.vinicius.forum.api.model.dto.input.UpdateTopicInput
-import com.vinicius.forum.api.model.dto.output.TopicOutput
+import com.vinicius.forum.api.controller.input.TopicInput
+import com.vinicius.forum.api.controller.input.UpdateTopicInput
+import com.vinicius.forum.api.controller.output.TopicOutput
 import com.vinicius.forum.api.service.TopicService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -29,7 +29,6 @@ class TopicController(private val service: TopicService) {
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@RequestBody @Valid topicInput: UpdateTopicInput) {
         service.update(topicInput)
     }

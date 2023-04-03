@@ -1,7 +1,7 @@
 package com.vinicius.forum.api.mapper
 
 import com.vinicius.forum.api.model.Topic
-import com.vinicius.forum.api.model.dto.output.TopicOutput
+import com.vinicius.forum.api.controller.output.TopicOutput
 import org.springframework.stereotype.Component
 
 @Component

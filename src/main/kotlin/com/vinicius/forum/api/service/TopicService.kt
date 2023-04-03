@@ -1,8 +1,8 @@
 package com.vinicius.forum.api.service
 
-import com.vinicius.forum.api.model.dto.input.TopicInput
-import com.vinicius.forum.api.model.dto.input.UpdateTopicInput
-import com.vinicius.forum.api.model.dto.output.TopicOutput
+import com.vinicius.forum.api.controller.input.TopicInput
+import com.vinicius.forum.api.controller.input.UpdateTopicInput
+import com.vinicius.forum.api.controller.output.TopicOutput
 
 interface TopicService {
     fun listAll(): List<TopicOutput>
