@@ -2,6 +2,7 @@ package com.vinicius.forum.api.service.impl
 
 import com.vinicius.forum.api.controller.input.TopicInput
 import com.vinicius.forum.api.controller.input.UpdateTopicInput
+import com.vinicius.forum.api.controller.output.projection.TopicByCategoryOutput
 import com.vinicius.forum.api.controller.output.TopicOutput
 import com.vinicius.forum.api.exceptions.NotFoundException
 import com.vinicius.forum.api.mapper.TopicInputMapper
@@ -52,6 +53,10 @@ class TopicServiceImpl(
     override fun delete(id: Long) {
         findTopicById(id)
         repository.deleteById(id)
+    }
+
+    override fun report(): List<TopicByCategoryOutput> {
+        return repository.report()
     }
 
     private fun findTopicById(id: Long) = this.repository

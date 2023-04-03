@@ -29,8 +29,10 @@ class ExceptionControllerHandler {
     @ExceptionHandler(Exception::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handlerServerError(
+        exception: Exception,
         request: HttpServletRequest,
     ): ErrorOutput {
+        exception.printStackTrace()
         return ErrorOutput(
             status = HttpStatus.BAD_REQUEST.value(),
             error = HttpStatus.BAD_REQUEST.name,

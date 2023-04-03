@@ -2,6 +2,7 @@ package com.vinicius.forum.api.controller
 
 import com.vinicius.forum.api.controller.input.TopicInput
 import com.vinicius.forum.api.controller.input.UpdateTopicInput
+import com.vinicius.forum.api.controller.output.projection.TopicByCategoryOutput
 import com.vinicius.forum.api.controller.output.TopicOutput
 import com.vinicius.forum.api.service.TopicService
 import jakarta.validation.Valid
@@ -49,6 +50,11 @@ class TopicController(private val service: TopicService) {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: Long) {
         service.delete(id)
+    }
+
+    @GetMapping("/report")
+    fun report(): List<TopicByCategoryOutput> {
+        return service.report()
     }
 
 }
