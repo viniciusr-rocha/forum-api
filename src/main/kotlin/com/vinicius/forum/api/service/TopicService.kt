@@ -8,5 +8,5 @@ interface TopicService {
 
     fun findById(id: Long): TopicOutput
 
-    fun insert(topic: TopicInput)
+    fun insert(topicInput: TopicInput)
 }

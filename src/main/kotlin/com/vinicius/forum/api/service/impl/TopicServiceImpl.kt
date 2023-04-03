@@ -1,55 +1,34 @@
 package com.vinicius.forum.api.service.impl
 
+import com.vinicius.forum.api.mapper.TopicInputMapper
+import com.vinicius.forum.api.mapper.TopicOutputMapper
 import com.vinicius.forum.api.model.Topic
 import com.vinicius.forum.api.model.dto.input.TopicInput
 import com.vinicius.forum.api.model.dto.output.TopicOutput
-import com.vinicius.forum.api.service.CurseService
 import com.vinicius.forum.api.service.TopicService
-import com.vinicius.forum.api.service.UserService
 import org.springframework.stereotype.Service
 
 @Service
 class TopicServiceImpl(
     private var topics: List<Topic> = ArrayList(),
-    private val curseService: CurseService,
-    private val userService: UserService,
+    private val topicOutputMapper: TopicOutputMapper,
+    private val topicInputMapper: TopicInputMapper,
 ) : TopicService {
 
     override fun listAll(): List<TopicOutput> {
-        return this.topics.map {
-            TopicOutput(
-                id = it.id,
-                title = it.title,
-                message = it.message,
-                status = it.status,
-                createdAt = it.createdAt
-            )
-        }
+        return this.topics.map { topicOutputMapper.map(it) }
     }
 
     override fun findById(id: Long): TopicOutput {
         return this.topics.filter { it.id == id }
-            .map {
-                TopicOutput(
-                    id = it.id,
-                    title = it.title,
-                    message = it.message,
-                    status = it.status,
-                    createdAt = it.createdAt
-                )
-            }
+            .map { topicOutputMapper.map(it) }
             .first()
     }
 
-    override fun insert(topic: TopicInput) {
-        this.topics = listOf(
-            Topic(
-                id = this.topics.size.toLong() + 1,
-                title = topic.title,
-                message = topic.message,
-                curse = curseService.findById(topic.curseId),
-                user = userService.findById(topic.authorId)
-            ),
+    override fun insert(topicInput: TopicInput) {
+        this.topics = topics.plus(
+            topicInputMapper.map(topicInput)
+                .copy(id = this.topics.size.toLong() + 1)
         )
     }
 }

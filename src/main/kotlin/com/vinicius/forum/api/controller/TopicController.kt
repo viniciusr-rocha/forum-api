@@ -3,6 +3,7 @@ package com.vinicius.forum.api.controller
 import com.vinicius.forum.api.model.dto.input.TopicInput
 import com.vinicius.forum.api.model.dto.output.TopicOutput
 import com.vinicius.forum.api.service.TopicService
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -20,7 +21,8 @@ class TopicController(private val service: TopicService) {
     }
 
     @PostMapping
-    fun insert(@RequestBody topic: TopicInput) {
-        return service.insert(topic)
+    @ResponseStatus(HttpStatus.CREATED)
+    fun insert(@RequestBody topicInput: TopicInput) {
+        return service.insert(topicInput)
     }
 }
