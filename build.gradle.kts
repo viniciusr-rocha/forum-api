@@ -22,10 +22,19 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-validation")
+//    Spring
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
+//    Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+//    DB
+    implementation("mysql:mysql-connector-java:8.0.32")
+
+//    Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
