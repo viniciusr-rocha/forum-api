@@ -15,7 +15,7 @@ class TopicInputMapper(
         return Topic(
             title = it.title,
             message = it.message,
-            curse = curseService.findById(it.curseId),
+            course = curseService.findById(it.curseId),
             user = userService.findById(it.authorId)
         )
     }

@@ -1,7 +1,7 @@
 package com.vinicius.forum.api.service
 
-import com.vinicius.forum.api.model.Curse
+import com.vinicius.forum.api.model.Course
 
 interface CurseService {
-    fun findById(id: Long): Curse
+    fun findById(id: Long): Course
 }

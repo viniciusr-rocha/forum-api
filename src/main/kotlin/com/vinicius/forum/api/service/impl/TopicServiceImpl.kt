@@ -45,7 +45,7 @@ class TopicServiceImpl(
                     title = updateTopicInput.title,
                     message = updateTopicInput.message,
                     user = topic.user,
-                    curse = topic.curse,
+                    course = topic.course,
                     answers = topic.answers,
                     status = topic.status,
                     createdAt = topic.createdAt

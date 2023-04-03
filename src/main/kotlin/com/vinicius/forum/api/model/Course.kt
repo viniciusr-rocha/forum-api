@@ -7,10 +7,12 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "tb_user")
-data class User(
+@Table(name = "tb_course")
+class Course(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     val name: String,
-    val email: String,
-)
+    val category: String,
+) {
+
+}
