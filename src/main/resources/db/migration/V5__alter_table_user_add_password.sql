@@ -1,0 +1,2 @@
+ALTER TABLE tb_user
+    ADD COLUMN password VARCHAR(10)
