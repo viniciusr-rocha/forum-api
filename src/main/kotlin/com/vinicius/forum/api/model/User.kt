@@ -1,4 +1,4 @@
-package com.vinicius.forum.api.model.enums
+package com.vinicius.forum.api.model
 
 data class User(
     val id: Long? = null,

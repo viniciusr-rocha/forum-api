@@ -1,6 +1,6 @@
 package com.vinicius.forum.api.model
 
-import com.vinicius.forum.api.model.enums.User
+import com.vinicius.forum.api.model.enums.TopicStatus
 import java.time.Instant
 
 data class Topic(
