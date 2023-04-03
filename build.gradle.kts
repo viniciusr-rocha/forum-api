@@ -33,6 +33,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 //    DB
+    implementation("org.flywaydb:flyway-mysql")
     implementation("mysql:mysql-connector-java:8.0.32")
 
 //    Test

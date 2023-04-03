@@ -7,15 +7,22 @@ spring:
       auto-commit: false
       connection-timeout: 250
       max-lifetime: 600000
+      idle-timeout: 300000
       maximum-pool-size: 20
       minimum-idle: 10
       pool-name: master
+  flyway:
+    url: jdbc:mysql://localhost:3306/db_forum?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
+    user: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
     show-sql: true
     hibernate:
       ddl-auto: none
     properties:
-      "[hibernate.dialect]": org.hibernate.dialect.MySQLDialect
+      "[hibernate.format_sql]": true
       "[hibernate.generate_statistics]": false
+      "[hibernate.dialect]": org.hibernate.dialect.MySQLDialect
       "[hibernate.connection.provider_disables_autocommit]": true
