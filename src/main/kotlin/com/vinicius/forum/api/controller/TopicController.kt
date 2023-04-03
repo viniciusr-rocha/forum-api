@@ -1,13 +1,9 @@
 package com.vinicius.forum.api.controller
 
 import com.vinicius.forum.api.model.Topic
+import com.vinicius.forum.api.model.dto.TopicDTO
 import com.vinicius.forum.api.service.TopicService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/topics")
@@ -24,7 +20,7 @@ class TopicController(private val service: TopicService) {
     }
 
     @PostMapping
-    fun insert(@RequestBody topic: Topic): Topic {
+    fun insert(@RequestBody topic: TopicDTO): TopicDTO {
         return service.insert(topic)
     }
 }
