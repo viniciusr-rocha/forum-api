@@ -13,7 +13,7 @@ data class TopicInput(
     val message: String,
 
     @field:NotNull(message = "O identificado do curso é obrigatório.")
-    val curseId: Long,
+    val courseId: Long,
 
     @field:NotNull(message = "O identificado do autor é obrigatório.")
     val authorId: Long,

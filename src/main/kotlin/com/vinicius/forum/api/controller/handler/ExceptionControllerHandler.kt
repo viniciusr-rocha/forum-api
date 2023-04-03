@@ -1,7 +1,7 @@
 package com.vinicius.forum.api.controller.handler
 
 import com.vinicius.forum.api.controller.handler.output.ErrorOutput
-import com.vinicius.forum.api.exceptions.TopicNotFoundException
+import com.vinicius.forum.api.exceptions.NotFoundException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ExceptionControllerHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(TopicNotFoundException::class)
+    @ExceptionHandler(NotFoundException::class)
     fun handlerNotFound(
-        exception: TopicNotFoundException,
+        exception: NotFoundException,
         request: HttpServletRequest,
     ): ErrorOutput {
         return ErrorOutput(

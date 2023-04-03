@@ -1,63 +1,52 @@
 package com.vinicius.forum.api.service.impl
 
-import com.vinicius.forum.api.exceptions.TopicNotFoundException
-import com.vinicius.forum.api.mapper.TopicInputMapper
-import com.vinicius.forum.api.mapper.TopicOutputMapper
-import com.vinicius.forum.api.model.Topic
 import com.vinicius.forum.api.controller.input.TopicInput
 import com.vinicius.forum.api.controller.input.UpdateTopicInput
 import com.vinicius.forum.api.controller.output.TopicOutput
+import com.vinicius.forum.api.exceptions.NotFoundException
+import com.vinicius.forum.api.mapper.TopicInputMapper
+import com.vinicius.forum.api.mapper.TopicOutputMapper
+import com.vinicius.forum.api.repository.TopicRepository
 import com.vinicius.forum.api.service.TopicService
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
 class TopicServiceImpl(
-    private var topics: List<Topic> = ArrayList(),
+    private var repository: TopicRepository,
     private val topicOutputMapper: TopicOutputMapper,
     private val topicInputMapper: TopicInputMapper,
 ) : TopicService {
 
     override fun listAll(): List<TopicOutput> {
-        return this.topics.map { topicOutputMapper.map(it) }
+        return repository.findAll().map { topicOutputMapper.map(it) }
     }
 
     override fun findById(id: Long): TopicOutput {
-        return this.topics.filter { it.id == id }
-            .map { topicOutputMapper.map(it) }
-            .firstOrNull() ?: throw TopicNotFoundException()
+        val topic = findTopicById(id)
+        return topicOutputMapper.map(topic)
     }
 
     override fun insert(topicInput: TopicInput): TopicOutput {
-        val topic = topicInputMapper
-            .map(topicInput)
-            .copy(id = this.topics.size.toLong() + 1)
-        this.topics = topics.plus(topic)
+        val topic = topicInputMapper.map(topicInput)
+        repository.save(topic)
         return topicOutputMapper.map(topic)
     }
 
     override fun update(updateTopicInput: UpdateTopicInput) {
-        val topic = findTopic(updateTopicInput.id)
-        this.topics = topics
-            .minus(topic)
-            .plus(
-                Topic(
-                    id = updateTopicInput.id,
-                    title = updateTopicInput.title,
-                    message = updateTopicInput.message,
-                    user = topic.user,
-                    course = topic.course,
-                    answers = topic.answers,
-                    status = topic.status,
-                    createdAt = topic.createdAt
-                )
-            )
+        val topic = findTopicById(updateTopicInput.id)
+        val topicUpdated = topic.copy(
+            title = updateTopicInput.title,
+            message = updateTopicInput.message
+        )
+        repository.save(topicUpdated)
     }
 
     override fun delete(id: Long) {
-        val topic = findTopic(id)
-        this.topics = topics.minus(topic)
+        findTopicById(id)
+        repository.deleteById(id)
     }
 
-    private fun findTopic(id: Long) = this.topics
-        .find { it.id == id } ?: throw TopicNotFoundException()
+    private fun findTopicById(id: Long) = this.repository
+        .findByIdOrNull(id) ?: throw NotFoundException("Tópico inexistente.")
 }
