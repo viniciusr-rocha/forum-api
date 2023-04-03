@@ -7,8 +7,11 @@ import com.vinicius.forum.api.service.TopicService
 import org.springframework.stereotype.Service
 
 @Service
-class TopicServiceImpl : TopicService {
-    override fun listAll(): List<Topic> {
+class TopicServiceImpl(
+    private var topics: List<Topic>,
+) : TopicService {
+
+    init {
         val topic = Topic(
             id = 1,
             title = "Duvida Kotlin",
@@ -24,6 +27,46 @@ class TopicServiceImpl : TopicService {
                 "kotlin@kotlin.com"
             )
         )
-        return listOf(topic)
+
+        val topic2 = Topic(
+            id = 2,
+            title = "Duvida Kotlin 2",
+            message = "Variaveis no Kotlin 2",
+            curse = Curse(
+                2,
+                "kotlin 2",
+                "programcacao 2",
+            ),
+            user = User(
+                2,
+                "Kotlin 2",
+                "kotlin2@kotlin.com"
+            )
+        )
+
+        val topic3 = Topic(
+            id = 3,
+            title = "Duvida Kotlin 3",
+            message = "Variaveis no Kotlin 3",
+            curse = Curse(
+                3,
+                "kotlin 3",
+                "programcacao 3",
+            ),
+            user = User(
+                3,
+                "Kotlin 3",
+                "kotlin3@kotlin.com"
+            )
+        )
+        this.topics = listOf(topic, topic2, topic3)
+    }
+
+    override fun listAll(): List<Topic> {
+        return this.topics
+    }
+
+    override fun findById(id: Long): Topic {
+        return this.topics.first { it.id == id }
     }
 }
