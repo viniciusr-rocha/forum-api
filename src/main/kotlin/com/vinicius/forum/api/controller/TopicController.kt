@@ -25,12 +25,19 @@ class TopicController(private val service: TopicService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun insert(@RequestBody @Valid topicInput: TopicInput) {
-        return service.insert(topicInput)
+        service.insert(topicInput)
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@RequestBody @Valid topicInput: UpdateTopicInput) {
-        return service.update(topicInput)
+        service.update(topicInput)
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun delete(@PathVariable id: Long) {
+        service.delete(id)
+    }
+
 }

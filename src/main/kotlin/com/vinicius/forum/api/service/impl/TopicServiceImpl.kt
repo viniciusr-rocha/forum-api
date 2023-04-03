@@ -50,4 +50,9 @@ class TopicServiceImpl(
                 )
             )
     }
+
+    override fun delete(id: Long) {
+        val topic = this.topics.first { it.id == id }
+        this.topics = topics.minus(topic)
+    }
 }

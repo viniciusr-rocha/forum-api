@@ -12,4 +12,6 @@ interface TopicService {
     fun insert(topicInput: TopicInput)
 
     fun update(updateTopicInput: UpdateTopicInput)
+
+    fun delete(id: Long)
 }
