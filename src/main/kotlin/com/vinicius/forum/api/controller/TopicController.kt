@@ -5,6 +5,7 @@ import com.vinicius.forum.api.controller.input.UpdateTopicInput
 import com.vinicius.forum.api.controller.output.TopicOutput
 import com.vinicius.forum.api.service.TopicService
 import jakarta.validation.Valid
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -31,17 +32,20 @@ class TopicController(private val service: TopicService) {
     }
 
     @PostMapping
+    @CacheEvict(value = ["topics"], allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     fun insert(@RequestBody @Valid topicInput: TopicInput): TopicOutput {
         return service.insert(topicInput)
     }
 
     @PutMapping
+    @CacheEvict(value = ["topics"], allEntries = true)
     fun update(@RequestBody @Valid topicInput: UpdateTopicInput) {
         service.update(topicInput)
     }
 
     @DeleteMapping("/{id}")
+    @CacheEvict(value = ["topics"], allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: Long) {
         service.delete(id)
