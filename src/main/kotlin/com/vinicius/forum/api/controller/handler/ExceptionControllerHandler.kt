@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class ExceptionControllerHandler {
 
-    @ExceptionHandler(TopicNotFoundException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(TopicNotFoundException::class)
     fun handlerNotFound(
         exception: TopicNotFoundException,
         request: HttpServletRequest,
@@ -21,6 +21,19 @@ class ExceptionControllerHandler {
             status = HttpStatus.NOT_FOUND.value(),
             error = HttpStatus.NOT_FOUND.name,
             message = exception.message,
+            path = request.servletPath
+        )
+    }
+
+    @ExceptionHandler(Exception::class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    fun handlerServerError(
+        request: HttpServletRequest,
+    ): ErrorOutput {
+        return ErrorOutput(
+            status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            error = HttpStatus.INTERNAL_SERVER_ERROR.name,
+            message = "Ocorreu um erro interno.",
             path = request.servletPath
         )
     }
