@@ -1,6 +1,7 @@
 package com.vinicius.forum.api.controller
 
 import com.vinicius.forum.api.model.dto.input.TopicInput
+import com.vinicius.forum.api.model.dto.input.UpdateTopicInput
 import com.vinicius.forum.api.model.dto.output.TopicOutput
 import com.vinicius.forum.api.service.TopicService
 import jakarta.validation.Valid
@@ -25,5 +26,11 @@ class TopicController(private val service: TopicService) {
     @ResponseStatus(HttpStatus.CREATED)
     fun insert(@RequestBody @Valid topicInput: TopicInput) {
         return service.insert(topicInput)
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun update(@RequestBody @Valid topicInput: UpdateTopicInput) {
+        return service.update(topicInput)
     }
 }

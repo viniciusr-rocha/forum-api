@@ -4,6 +4,7 @@ import com.vinicius.forum.api.mapper.TopicInputMapper
 import com.vinicius.forum.api.mapper.TopicOutputMapper
 import com.vinicius.forum.api.model.Topic
 import com.vinicius.forum.api.model.dto.input.TopicInput
+import com.vinicius.forum.api.model.dto.input.UpdateTopicInput
 import com.vinicius.forum.api.model.dto.output.TopicOutput
 import com.vinicius.forum.api.service.TopicService
 import org.springframework.stereotype.Service
@@ -30,5 +31,23 @@ class TopicServiceImpl(
             topicInputMapper.map(topicInput)
                 .copy(id = this.topics.size.toLong() + 1)
         )
+    }
+
+    override fun update(updateTopicInput: UpdateTopicInput) {
+        val topic = this.topics.first { it.id == updateTopicInput.id }
+        this.topics = topics
+            .minus(topic)
+            .plus(
+                Topic(
+                    id = updateTopicInput.id,
+                    title = updateTopicInput.title,
+                    message = updateTopicInput.message,
+                    user = topic.user,
+                    curse = topic.curse,
+                    answers = topic.answers,
+                    status = topic.status,
+                    createdAt = topic.createdAt
+                )
+            )
     }
 }
