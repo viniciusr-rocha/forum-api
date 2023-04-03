@@ -8,6 +8,8 @@ import com.vinicius.forum.api.mapper.TopicInputMapper
 import com.vinicius.forum.api.mapper.TopicOutputMapper
 import com.vinicius.forum.api.repository.TopicRepository
 import com.vinicius.forum.api.service.TopicService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -18,11 +20,11 @@ class TopicServiceImpl(
     private val topicInputMapper: TopicInputMapper,
 ) : TopicService {
 
-    override fun listAll(courseName: String?): List<TopicOutput> {
+    override fun listAll(courseName: String?, pagination: Pageable): Page<TopicOutput> {
         val topics = if (courseName.isNullOrBlank()) {
-            repository.findAll()
+            repository.findAll(pagination)
         } else {
-            repository.findByCourseName(courseName)
+            repository.findByCourseName(courseName, pagination)
         }
         return topics.map { topicOutputMapper.map(it) }
     }
