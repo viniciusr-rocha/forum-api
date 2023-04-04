@@ -1,7 +1,6 @@
-package com.vinicius.forum.api.config.security
+package com.vinicius.forum.api.config.security.jwt
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.vinicius.forum.api.config.JWTUtil
 import com.vinicius.forum.api.model.Credentials
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -32,8 +31,8 @@ class JWTLoginFilter(
         chain: FilterChain?,
         authResult: Authentication?,
     ) {
-        val username = (authResult?.principal as UserDetails).username
-        val token = jwtUtil.generateToken(username)
+        val user = (authResult?.principal as UserDetails)
+        val token = jwtUtil.generateToken(user.username, user.authorities)
         response?.addHeader("Authorization", "Bearer $token")
     }
 }

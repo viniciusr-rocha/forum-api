@@ -29,6 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("javax.xml.bind:jaxb-api:2.3.1")
 
 //    Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
