@@ -3,7 +3,7 @@ package com.vinicius.forum.api.service.impl
 import com.vinicius.forum.api.model.User
 import org.springframework.security.core.userdetails.UserDetails
 
-class UserDetail(
+class UserDetailServiceImpl(
     private val user: User,
 ) : UserDetails {
     override fun getAuthorities() = this.user.role

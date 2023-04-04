@@ -19,6 +19,6 @@ class UserServiceImpl(
 
     override fun loadUserByUsername(username: String?): UserDetails {
         val user = repository.findByEmail(username) ?: throw NotFoundException("Usuário não cadastrado.")
-        return UserDetail(user)
+        return UserDetailServiceImpl(user)
     }
 }
