@@ -6,3 +6,6 @@ CREATE TABLE tb_user_role
     FOREIGN KEY (user_id) REFERENCES tb_user (id),
     FOREIGN KEY (role_id) REFERENCES tb_role (id)
 );
+
+INSERT INTO tb_user_role(id, user_id, role_id)
+VALUES (1, 1, 1);

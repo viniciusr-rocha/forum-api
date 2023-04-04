@@ -21,6 +21,7 @@ class SecurityConfig {
         http
             .csrf()?.disable()
             ?.authorizeHttpRequests()
+            ?.requestMatchers("/topics")?.hasAuthority("READ_WRITE")
             ?.anyRequest()
             ?.authenticated()
             ?.and()
