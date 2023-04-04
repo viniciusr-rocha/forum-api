@@ -38,6 +38,9 @@ dependencies {
     implementation("org.flywaydb:flyway-mysql")
     implementation("mysql:mysql-connector-java:8.0.32")
 
+//    JWT
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+
 //    Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
